@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+   <head>
+       <meta charset="utf-8">
+   </head>
+   <body style="height: 100%; margin: 0">
+       <div id="container" style="height: 100%"></div>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+       <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=xfhhaTThl11qYVrqLZii6w8qE5ggnhrY&__ec_v__=20190126"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+       <script type="text/javascript">
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+option = null;
+var data = [{
+    name: 'yard',
+    itemStyle: {
+        color: '#da0d68'
+    },
+    children: [{
+        name: 'Structures',
+        itemStyle: {
+            color: '#e1c315'
+        },
+        children: [{
+            name: 'Yellow Columns',
+            value: 1,
+            itemStyle: {
+                color: '#f99e1c'
+            }
+        }, {
+            name: 'Stairs',
+            value: 1,
+            itemStyle: {
+                color: '#ef5a78'
+            }
+        }]
+    }, {
+        name: 'Spatial Series',
+        itemStyle: {
+            color: '#b14d57'
+        },children: [{
+            name: 'Slopes',
+            value: 1,
+            itemStyle: {
+                color: '#d0b24f'
+            }
+        }, {
+            name: 'Flatten Roof',
+            value: 1,
+            itemStyle: {
+                color: '#ef5a78'
+            }
+        },{
+            name: 'Spatial Combination',
+            value: 1,
+            itemStyle: {
+                color: '#f99e1c'
+            }
+        },
+        {
+            name: 'Spatial Organization',
+            value: 1,
+            itemStyle: {
+                color: '#ef2d36'
+            }
+        }]
+    },{
+        name: 'Texture',
+        itemStyle: {
+            color: '#e65832'
+        },
+        children: [{
+            name: 'Graffiti',
+            value: 1,
+            itemStyle: {
+                color: '#f99e1c'
+            }
+        }, {
+            name: 'Rusty Metal',
+            value: 1,
+            itemStyle: {
+                color: '#ef5a78'
+            }
+        }, {
+            name: 'Tree Braches',
+            value: 1,
+            itemStyle: {
+                color: '#4eb849'
+            }
+        }]
+    }]
+}, {
+    name: 'Industrial\nRuins',
+    itemStyle: {
+        color: '#da1d23'
+    },
+    children: [{
+        name: 'Office Supplies',
+        itemStyle: {
+            color: '#dd4c51'
+        },
+        children: [{
+            name: 'desks',
+            value: 1,
+            itemStyle: {
+                color: '#3e0317'
+            }
+        }, {
+            name: 'chairs',
+            value: 1,
+            itemStyle: {
+                color: '#692a19'
+            }
+        }, {
+            name: 'cabinets',
+            value: 1,
+            itemStyle: {
+                color: '#c78936'
+            }
+        }]
+    }, {
+        name: 'Structure',
+        itemStyle: {
+            color: '#c94a44'
+        },
+        children: [{
+            name: 'Huge Stones',
+            value: 1,
+            itemStyle: {
+                color: '#b53b54'
+            }
+        }
+        ]
+    }, {
+        name: 'Tracks',
+        itemStyle: {
+            color: '#ad213e'
+        },
+        children: [{
+            name: 'Curve',
+            value: 1,
+            itemStyle: {
+                color: '#f2684b'
+            }
+        }, {
+            name: 'Graffiti',
+            value: 1,
+            itemStyle: {
+                color: '#e65656'
+            }
+        }, {
+            name: 'Used Tracks',
+            value: 2,
+            itemStyle: {
+                color: '#ae341f'
+            }
+        }, {
+            name: 'Rail Tracks',
+            value: 1,
+            itemStyle: {
+                color: '#eb9d5f'
+            }
+        }]
+    }, {
+        name: 'Road',
+        itemStyle: {
+            color: '#f7a128'
+        },
+        children: [{
+            name: 'Roadblock',
+            value: 1,
+            itemStyle: {
+                color: '#f26355'
+            }
+        }, {
+            name: 'Abandoned Graffiti Car',
+            value: 2,
+            itemStyle: {
+                color: '#e2631e'
+            }
+        }, {
+            name: 'Roadspots',
+            value: 1,
+            itemStyle: {
+                color: 'FF0000'
+            }
+                }]
+    }]
+}, {
+    name: 'Factory/\nBuildings',
+    itemStyle: {
+        color: '#c94930'
+    },
+    children: [{
+        name: 'Building',
+        itemStyle: {
+            color: '#c94a44'
+        },
+        children: [{
+            name: 'Gable',
+            value: 1,
+            itemStyle: {
+                color: '#e65832'
+            }
+        }, {
+            name: 'Blocks',
+            value: 1,
+            itemStyle: {
+                color: '#d45a59'
+            }
+        }, {
+            name: 'Window',
+            value: 1,
+            itemStyle: {
+                color: '#120c0c'
+            }
+        }, {
+            name: 'Contrast',
+            value: 1,
+            itemStyle: {
+                color: '#8eb646'
+            }
+        }]
+    },{
+        name: 'Color',
+        itemStyle: {
+            color: '#e1c315'
+        },
+        children: [{
+            name: 'Green Trashcan',
+            value: 1,
+            itemStyle: {
+                color: '#038549'
+            }
+        }, {
+            name: 'Old Red Blocks',
+            value: 1,
+            itemStyle: {
+                color: '#a8453a'
+            }
+        }, {
+            name: 'Orange Foam',
+            value: 1,
+            itemStyle: {
+                color: '#f7a128'
+            }
+        }, {
+            name: 'Sliver Surface',
+            value: 1,
+            itemStyle: {
+                color: '#5e777b'
+            }
+        }]
+    }, {
+        name: 'Mural',
+        itemStyle: {
+            color: '#df9f3e'
+        },
+        children: [{
+            name: 'foam',
+            value: 1,
+            itemStyle: {
+                color: '#8f1c53'
+            }
+        }, {
+            name: 'Peeled materials',
+            value: 1,
+            itemStyle: {
+                color: '#b34039'
+            }
+        }, {
+            name: 'orange color',
+            value: 1,
+            itemStyle: {
+                color: '#ba9232'
+            }
+        }, {
+            name: 'sliver covers',
+            value: 1,
+            itemStyle: {
+                color: '#8b6439'
+            }
+        }]
+    }]
+}, {
+    name: 'wood\nlot',
+    itemStyle: {
+        color: '#187a2f'
+    },
+    children: [{
+        name: 'Topography',
+        itemStyle: {
+            color: '#b09733'
+        },        children: [{
+            name: 'Slopes',
+            value: 1,
+            itemStyle: {
+                color: '#beb276'
+            }
+        }, {
+            name: 'Cliff',
+            value: 1,
+            itemStyle: {
+                color: '#8b8c90'
+            }
+        }]
+    },{
+        name: 'Sound',
+        itemStyle: {
+            color: '#3aa255'
+        },        children: [{
+            name: 'Bird',
+            value: 1,
+            itemStyle: {
+                color: '#03a653'
+            }
+        }]
+    },{
+        name: 'Tree',
+        itemStyle: {
+            color: '#718933'
+        },        children: [{
+            name: 'Branches',
+            value: 1,
+            itemStyle: {
+                color: '#a2bb2b'
+            }
+        }]
+    },{
+        name: 'Plants',
+        itemStyle: {
+            color: '#a2b029'
+        },        children: [{
+            name: 'Canopy Lines',
+            value: 1,
+            itemStyle: {
+                color: '#a2bb2b'
+            }
+        }, {
+            name: 'Shrubs',
+            value: 1,
+            itemStyle: {
+                color: '#62aa3c'
+            }
+        }]
+    }]
+}, {
+    name: 'Open\nspace',value: 5,
+    itemStyle: {
+        color: '#0aa3b5'
+    },
+    children: [{
+        name: 'Structures',
+        itemStyle: {
+            color: '#dfbd7e'
+        },
+        children: [{
+            name: 'Huge Stones',
+            value: 2,
+            itemStyle: {
+                color: '#caa465'
+            }
+        }]
+    },{
+        name: 'Spatial\nSequence',
+        itemStyle: {
+            color: '#5e9a80'
+        },
+        children: [{
+            name: 'Array',
+            value: 1,
+            itemStyle: {
+                color: '#8b8c90'
+            }
+        }, {
+            name: 'Corridor',
+            value: 1,
+            itemStyle: {
+                color: '#beb276'
+            }
+        }, {
+            name: 'Semi-Closed Space',
+            value:1,
+            itemStyle: {
+                color: '#744e03'
+            }
+        }]
+    }]
+}, {
+    name: 'Marsh',
+    itemStyle: {
+        color: '#ebb40f'
+    },
+    children: [{
+        name: 'Allen Creek',
+        itemStyle: {
+            color: '#76c0cb'
+        },
+        children: [{
+            name: 'Dam Within 1500Ft',
+            value: 1,
+            itemStyle: {
+                color: '#b9a449'
+            }
+        }, {
+            name: 'High Water Level',
+            value: 1,
+            itemStyle: {
+                color: '#6569b0'
+            }
+        }, {
+            name: 'Hidden Creek',
+            value: 1,
+            itemStyle: {
+                color: '#80a89d'
+            }
+        }]
+    }, {
+        name: 'Grass',
+        itemStyle: {
+            color: '#ddaf61'
+        },
+        children: [{
+            name: 'Grass Texture',
+            value: 1,
+            itemStyle: {
+                color: '#b7906f'
+            }
+        }, {
+            name: 'Cat-Tail',
+            value: 1,
+            itemStyle: {
+                color: '#eb9d5f'
+            }
+        },{
+            name: 'Cluster Grass',
+            value: 1,
+            itemStyle: {
+                color: '#b9a449'
+            }
+        }, {
+            name: 'Breeze',
+            value: 1,
+            itemStyle: {
+                color: '#899893'
+            }
+        }]
+    },{
+        name: 'Margin',
+        itemStyle: {
+            color: '#be8663'
+        },
+        children: [{
+            name: 'Black Soil',
+            value: 1,
+            itemStyle: {
+                color: '#b9a449'
+            }
+        }, {
+            name: 'Openview',
+            value: 1,
+            itemStyle: {
+                color: '#899893'
+            }
+        }, {
+            name: 'Soften Margin',
+            value: 1,
+            itemStyle: {
+                color: '#a1743b'
+            }
+        }]
+    }]
+}, {
+    name: 'Mou\nnd',
+    itemStyle: {
+        color: '#ad213e'
+    },
+    children: [{
+        name: 'Structures',
+        itemStyle: {
+            color: '#dfbd7e'
+        },
+        children: [{
+            name: 'Roadblocks',
+            value: 1,
+            itemStyle: {
+                color: '#c78936'
+            }
+        }, {
+            name: 'Wooden Sticks',
+            value: 1,
+            itemStyle: {
+                color: '#8c292c'
+            }
+        }]
+    },{
+        name: 'Topography',
+        itemStyle: {
+            color: '#b09733'
+        },
+        children: [{
+            name: 'Peddle Mound',
+            value: 2,
+            itemStyle: {
+                color: '#e5762e'
+            }
+        }]
+    }]
+}, {
+    name: 'Parking',
+    itemStyle: {
+        color: '#975e6d'
+    },
+    children: [{
+        name: 'Road',
+        itemStyle: {
+            color: '#9db2b7'
+        },
+        children: [{
+            name: 'Security Vehicle',
+            value: 1,
+            itemStyle: {
+                color: '#310d0f'
+            }
+        }, {
+            name: 'Barren',
+            value: 1,
+            itemStyle: {
+                color: '#899893'
+            }
+        }, {
+            name: 'Broken Road',
+            value: 1,
+            itemStyle: {
+                color: '#d78823'
+            }
+        }, {
+            name: 'Hard Paving Ground',
+            value: 1,
+            itemStyle: {
+                color: '#da5c1f'
+            }
+        },{
+            name: 'Waterlogging',
+            value: 1,
+            itemStyle: {
+                color: '#039fb8'
+            }
+        }]
+    },{
+        name: 'Color',
+        itemStyle: {
+            color: '#a87b64'
+        },
+        children: [{
+            name: 'Black',
+            value: 1,
+            itemStyle: {
+                color: '#000000'
+            }
+        }, {
+            name: 'Purple',
+            value: 1,
+            itemStyle: {
+                color: '#732C7A'
+            }
+        }, {
+            name: 'Gary',
+            value: 1,
+            itemStyle: {
+                color: '#858585'
+            }
+        }, {
+            name: 'Yellow',
+            value: 1,
+            itemStyle: {
+                color: '#FFEB0D'
+            }
+        
+        }]
+    }]
+}];
+
+option = {
+    title: {
+        text: 'Perception Elements ',
+        subtext: '590B Assignment 04 Li Yan',
+        textStyle: {
+            fontSize: 25,
+            align: 'center'
+        },
+        subtextStyle: {
+            align: 'center'
+        },
+        sublink: 'https://ecomfe.github.io/echarts-examples/public/editor.html?c=sunburst-drink'
+    },
+    series: {
+        type: 'sunburst',
+        highlightPolicy: 'ancestor',
+        data: data,
+        radius: [0, '95%'],
+        sort: null,
+        levels: [{}, {
+            r0: '15%',
+            r: '35%',
+            itemStyle: {
+                borderWidth: 2
+            },
+            label: {
+                rotate: 'tangential'
+            }
+        }, {
+            r0: '35%',
+            r: '70%',
+            label: {
+                align: 'right'
+            }
+        }, {
+            r0: '70%',
+            r: '72%',
+            label: {
+                position: 'outside',
+                padding: 3,
+                silent: false
+            },
+            itemStyle: {
+                borderWidth: 3
+            }
+        }]
+    }
+};
+
+
+;
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+       </script>
+   </body>
+</html>
